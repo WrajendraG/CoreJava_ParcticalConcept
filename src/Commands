@@ -1,0 +1,66 @@
+package jdbcDemo;
+
+import java.sql.*;
+public class Driver
+{
+
+    public static void main(String[] args)
+    {
+        Connection myconn=null;
+        Statement stmt=null;
+        ResultSet result=null;
+
+        try
+        {
+            // Step 0 Set Driver If you have first time Create Connection
+
+            // Step 1  Get Connection  to database using that DriverManager
+            myconn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database","root","root");
+
+            // Step 2 create Statement helping that connection
+
+            stmt = myconn.createStatement();
+
+            //Step 3  Execute Query helping that Statement object
+
+            result = stmt.executeQuery("select * from Employee");
+
+   //            result =stmt.executeQuery("select * from Employee");
+
+            //step 4 Printing Reults
+
+            while (result.next())
+            {
+                System.out.print(result.getString("name")+" "+ result.getString("surname")+" "+result.getInt("age"));
+                System.out.println();
+
+            }
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+
+                            try {
+
+                                result.close();
+                                stmt.close();
+                                myconn.close();
+
+                            } catch (SQLException e)
+                            {
+                                e.printStackTrace();
+                            }
+        }
+
+    }
+
+}
+/*
+Deepak Waghmare 24
+Ramu Lad 23
+Dipali Tambre 16
+Vishvas Tambre 21
+ */
